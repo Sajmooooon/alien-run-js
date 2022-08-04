@@ -1,8 +1,12 @@
+//player
 var playerAnim;
 var player;
 
+//bg
+var bg;
+
 function setup(){
-    createCanvas(400,400);
+    createCanvas(windowWidth,250);
 
     player = createSprite(150, 150);
     player.addAnimation('walk',playerAnim)
@@ -10,7 +14,7 @@ function setup(){
 
 function draw(){
     background(200);
-
+    image(bg, 0, 0, width, height-70)
     drawSprites();
 }
 
@@ -27,4 +31,6 @@ function preload(){
                                 '../assets/img/alien/p1_walk09.png',
                                 '../assets/img/alien/p1_walk10.png',
                                 '../assets/img/alien/p1_walk11.png');
+
+    bg = loadImage('../assets/img/background/bg_castle.png');
 }
