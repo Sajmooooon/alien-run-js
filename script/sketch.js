@@ -1,6 +1,7 @@
 //player
 var playerAnim;
 var player;
+var playerAnimJump;
 
 //bg
 var bg;
@@ -19,11 +20,28 @@ function setup(){
 
     player = createSprite(150, 150);
     player.addAnimation('walk',playerAnim);
+    player.jump = false;
 }
 
 function draw(){
     background(200);
     image(bg, 0, 0, width, height-70)
+
+    if (keyDown(KEY.SPACE) && !player.jump){
+        //speed 5, positin -90 -> top
+        player.setSpeed(5, -90);
+        player.jump = true;
+    }
+
+    //gravity to ground with speed 0.3
+    player.addSpeed(0.3, 90);
+
+    //collide with ground
+    if (player.collide(ground)){
+        player.jump = false;
+    }
+
+
     drawSprites();
 }
 
@@ -40,6 +58,8 @@ function preload(){
                                 '../assets/img/alien/p1_walk09.png',
                                 '../assets/img/alien/p1_walk10.png',
                                 '../assets/img/alien/p1_walk11.png');
+
+    playerAnimJump = loadAnimation('../assets/img/alien/p1_jump.png')
 
     bg = loadImage('../assets/img/background/bg_castle.png');
 }
