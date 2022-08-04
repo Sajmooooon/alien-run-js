@@ -5,11 +5,20 @@ var player;
 //bg
 var bg;
 
+//ground
+var ground;
+
 function setup(){
     createCanvas(windowWidth,250);
+    frameRate(60);
+
+    //1. param - sur. x, 2. sur. y, 3. param width, 4. height
+    ground = createSprite(width/2,height-35, width, 70);
+    //shade between black and white
+    ground.shapeColor = 75;
 
     player = createSprite(150, 150);
-    player.addAnimation('walk',playerAnim)
+    player.addAnimation('walk',playerAnim);
 }
 
 function draw(){
