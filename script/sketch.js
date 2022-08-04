@@ -20,6 +20,7 @@ function setup(){
 
     player = createSprite(150, 150);
     player.addAnimation('walk',playerAnim);
+    player.addAnimation('jump',playerAnimJump);
     player.jump = false;
 }
 
@@ -27,10 +28,13 @@ function draw(){
     background(200);
     image(bg, 0, 0, width, height-70)
 
+    //jump
     if (keyDown(KEY.SPACE) && !player.jump){
         //speed 5, positin -90 -> top
         player.setSpeed(5, -90);
         player.jump = true;
+        //add jump anim
+        player.changeAnimation('jump')
     }
 
     //gravity to ground with speed 0.3
@@ -38,6 +42,7 @@ function draw(){
 
     //collide with ground
     if (player.collide(ground)){
+        player.changeAnimation('walk')
         player.jump = false;
     }
 
