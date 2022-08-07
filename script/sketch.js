@@ -3,6 +3,10 @@ var playerAnim;
 var player;
 var playerAnimJump;
 
+//enemies
+var slimeAnim, flyAnim;
+var opponents;
+
 //bg
 var bg;
 
@@ -22,6 +26,11 @@ function setup(){
     player.addAnimation('walk',playerAnim);
     player.addAnimation('jump',playerAnimJump);
     player.jump = false;
+
+    //opponents
+    opponents = new Group();
+    createOpponent();
+    createOpponent();
 }
 
 function draw(){
@@ -50,6 +59,17 @@ function draw(){
     drawSprites();
 }
 
+
+function createOpponent(){
+    //width - end of screen, 170 height
+    o = createSprite(width, 170);
+    o.addAnimation('run', slimeAnim);
+    //speed 5, direction 180
+    o.setSpeed(5,180);
+    o.addToGroup(opponents);
+}
+
+
 function preload(){
     playerAnim = loadAnimation('../assets/img/alien/p1_walk01.png',
                                 '../assets/img/alien/p1_walk02.png',
@@ -65,6 +85,11 @@ function preload(){
                                 '../assets/img/alien/p1_walk11.png');
 
     playerAnimJump = loadAnimation('../assets/img/alien/p1_jump.png')
+
+    slimeAnim = loadAnimation('../assets/img/enemies/slimeWalk1.png',
+                                '../assets/img/enemies/slimeWalk2.png')
+    flyAnim = loadAnimation('../assets/img/enemies/flyFly1.png',
+                            '../assets/img/enemies/flyFly2.png')
 
     bg = loadImage('../assets/img/background/bg_castle.png');
 }
