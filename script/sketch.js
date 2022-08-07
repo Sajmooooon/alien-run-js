@@ -67,10 +67,11 @@ function draw(){
     }
 
     //collision
-    player.overlap(opponents, heroDie);
+
     side.overlap(opponents,opponentOut)
 
     drawSprites();
+    player.overlap(opponents, heroDie);
     drawScore();
 }
 
@@ -100,6 +101,7 @@ function chooseOpponentAnim(height,anim){
 
 
 function heroDie(player, opponent){
+    drawMessage('PRESS SPACE TO PLAY AGAIN')
     noLoop();
 }
 
@@ -115,6 +117,14 @@ function drawScore(){
     textSize(40);
     textAlign(RIGHT);
     text(score, width-20, 40);
+}
+
+
+function drawMessage(message){
+    fill('yellow');
+    textSize(40);
+    textAlign(CENTER);
+    text(message, width/2, height-25);
 }
 
 
