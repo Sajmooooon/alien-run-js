@@ -26,6 +26,8 @@ function setup(){
     player.addAnimation('walk',playerAnim);
     player.addAnimation('jump',playerAnimJump);
     player.jump = false;
+    player.debug = true;
+    player.setCollider('circle',0,0,40);
 
     //opponents
     opponents = new Group();
@@ -59,6 +61,9 @@ function draw(){
         createOpponent()
     }
 
+    //collision
+    player.overlap(opponents, heroDie);
+
     drawSprites();
 }
 
@@ -68,20 +73,29 @@ function createOpponent(){
 
     if (type){
         o = chooseOpponentAnim(170,slimeAnim);
+        o.setCollider('circle',-2,5,20);
     }
     else{
         o = chooseOpponentAnim(70,flyAnim);
+        o.setCollider('circle',0,5,20);
     }
-
+    o.debug = true;
     o.setSpeed(5,180);
     o.addToGroup(opponents);
 }
+
 
 function chooseOpponentAnim(height,anim){
     o = createSprite(width, height);
     o.addAnimation('run', anim);
     return o;
 }
+
+
+function heroDie(player, opponent){
+    noLoop();
+}
+
 
 function preload(){
     playerAnim = loadAnimation('../assets/img/alien/p1_walk01.png',
