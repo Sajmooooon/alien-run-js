@@ -21,11 +21,15 @@ function setup(){
     frameRate(60);
 
     //1. param - sur. x, 2. sur. y, 3. param width, 4. height
-    ground = createSprite(width/2,height-35, width, 70);
+    ground = createSprite(width/2,height-30, width, 70);
     //shade between black and white
     ground.shapeColor = 75;
     //side
     side = createSprite(-5, height/2, 10, height);
+
+    //opponents
+    opponents = new Group();
+    createOpponent();
 
     player = createSprite(width/5, 150);
     player.addAnimation('walk',playerAnim);
@@ -34,10 +38,6 @@ function setup(){
     // player.debug = true;
     player.setCollider('circle',0,0,40);
 
-    //opponents
-    opponents = new Group();
-    createOpponent();
-    // createOpponent();
 }
 
 function draw(){
@@ -58,8 +58,8 @@ function draw(){
 
     //collide with ground
     if (player.collide(ground)){
-        player.changeAnimation('walk')
         player.jump = false;
+        player.changeAnimation('walk');
     }
 
     if (frameCount % 50 === 0){
@@ -79,7 +79,7 @@ function createOpponent(){
     var type =  Math.floor(random(2));
 
     if (type){
-        o = chooseOpponentAnim(170,slimeAnim);
+        o = chooseOpponentAnim(180,slimeAnim);
         o.setCollider('circle',-2,5,20);
     }
     else{
