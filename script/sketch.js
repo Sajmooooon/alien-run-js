@@ -3,6 +3,8 @@ var playerAnim;
 var player;
 var playerAnimJump;
 
+//game
+var gameOver = false;
 var score = 0;
 
 //enemies
@@ -18,10 +20,10 @@ var ground;
 
 function setup(){
     createCanvas(windowWidth,250);
-    frameRate(60);
+    frameRate(50);
 
     //1. param - sur. x, 2. sur. y, 3. param width, 4. height
-    ground = createSprite(width/2,height-30, width, 70);
+    ground = createSprite(width/2,height-35, width, 70);
     //shade between black and white
     ground.shapeColor = 75;
     //side
@@ -48,9 +50,9 @@ function draw(){
     if (keyDown(KEY.SPACE) && !player.jump){
         //speed 5, positin -90 -> top
         player.setSpeed(5, -90);
-        player.jump = true;
         //add jump anim
         player.changeAnimation('jump')
+        player.jump = true;
     }
 
     //gravity to ground with speed 0.3
@@ -101,6 +103,7 @@ function chooseOpponentAnim(height,anim){
 
 
 function heroDie(player, opponent){
+    gameOver = true;
     drawMessage('PRESS SPACE TO PLAY AGAIN')
     noLoop();
 }
@@ -125,6 +128,16 @@ function drawMessage(message){
     textSize(40);
     textAlign(CENTER);
     text(message, width/2, height-25);
+}
+
+
+function keyPressed(){
+   if (keyCode == KEY.SPACE && gameOver){
+       opponents.removeSprites();
+       gameOver = false;
+       score = 0;
+       loop();
+   }
 }
 
 
