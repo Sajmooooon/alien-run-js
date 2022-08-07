@@ -30,7 +30,7 @@ function setup(){
     //opponents
     opponents = new Group();
     createOpponent();
-    createOpponent();
+    // createOpponent();
 }
 
 function draw(){
@@ -55,20 +55,33 @@ function draw(){
         player.jump = false;
     }
 
+    if (frameCount % 50 === 0){
+        createOpponent()
+    }
 
     drawSprites();
 }
 
 
 function createOpponent(){
-    //width - end of screen, 170 height
-    o = createSprite(width, 170);
-    o.addAnimation('run', slimeAnim);
-    //speed 5, direction 180
+    var type =  Math.floor(random(2));
+
+    if (type){
+        o = chooseOpponentAnim(170,slimeAnim);
+    }
+    else{
+        o = chooseOpponentAnim(70,flyAnim);
+    }
+
     o.setSpeed(5,180);
     o.addToGroup(opponents);
 }
 
+function chooseOpponentAnim(height,anim){
+    o = createSprite(width, height);
+    o.addAnimation('run', anim);
+    return o;
+}
 
 function preload(){
     playerAnim = loadAnimation('../assets/img/alien/p1_walk01.png',
