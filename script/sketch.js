@@ -3,12 +3,15 @@ var playerAnim;
 var player;
 var playerAnimJump;
 
+var score = 0;
+
 //enemies
 var slimeAnim, flyAnim;
 var opponents;
 
 //bg
 var bg;
+var side;
 
 //ground
 var ground;
@@ -21,12 +24,14 @@ function setup(){
     ground = createSprite(width/2,height-35, width, 70);
     //shade between black and white
     ground.shapeColor = 75;
+    //side
+    side = createSprite(-5, height/2, 10, height);
 
     player = createSprite(width/5, 150);
     player.addAnimation('walk',playerAnim);
     player.addAnimation('jump',playerAnimJump);
     player.jump = false;
-    player.debug = true;
+    // player.debug = true;
     player.setCollider('circle',0,0,40);
 
     //opponents
@@ -63,8 +68,10 @@ function draw(){
 
     //collision
     player.overlap(opponents, heroDie);
+    side.overlap(opponents,opponentOut)
 
     drawSprites();
+    drawScore();
 }
 
 
@@ -79,7 +86,7 @@ function createOpponent(){
         o = chooseOpponentAnim(70,flyAnim);
         o.setCollider('circle',0,5,20);
     }
-    o.debug = true;
+    // o.debug = true;
     o.setSpeed(5,180);
     o.addToGroup(opponents);
 }
@@ -94,6 +101,20 @@ function chooseOpponentAnim(height,anim){
 
 function heroDie(player, opponent){
     noLoop();
+}
+
+
+function opponentOut(side, opponent){
+    opponent.remove();
+    score += 10;
+}
+
+
+function drawScore(){
+    fill('yellow');
+    textSize(40);
+    textAlign(RIGHT);
+    text(score, width-20, 40);
 }
 
 
