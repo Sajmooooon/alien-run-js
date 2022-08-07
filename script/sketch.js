@@ -22,7 +22,7 @@ function setup(){
     //shade between black and white
     ground.shapeColor = 75;
 
-    player = createSprite(150, 150);
+    player = createSprite(width/5, 150);
     player.addAnimation('walk',playerAnim);
     player.addAnimation('jump',playerAnimJump);
     player.jump = false;
