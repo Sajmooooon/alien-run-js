@@ -10,6 +10,7 @@ var score = 0;
 //enemies
 var slimeAnim, flyAnim;
 var opponents;
+var speed=5;
 
 //bg
 var bg;
@@ -90,7 +91,7 @@ function createOpponent(){
         o.setCollider('circle',0,5,20);
     }
     // o.debug = true;
-    o.setSpeed(5,180);
+    o.setSpeed(speed,180);
     o.addToGroup(opponents);
 }
 
